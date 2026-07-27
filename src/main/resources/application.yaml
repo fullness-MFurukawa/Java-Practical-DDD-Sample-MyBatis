@@ -1,3 +1,18 @@
 spring:
   application:
     name: practical_sample_mybatis
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restapi_exercise
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:training}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: ddd-demo-pool
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+  mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: jp.co.fullness.ddd.infrastructure.mybatis.row
+    configuration:
+      map-underscore-to-camel-case: true

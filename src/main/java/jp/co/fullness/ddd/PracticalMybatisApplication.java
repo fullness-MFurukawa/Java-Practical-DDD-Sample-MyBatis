@@ -1,13 +1,13 @@
-package jp.co.fullness.ddd.sample;
+package jp.co.fullness.ddd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PracticalSampleMybatisApplication {
+public class PracticalMybatisApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PracticalSampleMybatisApplication.class, args);
+		SpringApplication.run(PracticalMybatisApplication.class, args);
 	}
 
 }
