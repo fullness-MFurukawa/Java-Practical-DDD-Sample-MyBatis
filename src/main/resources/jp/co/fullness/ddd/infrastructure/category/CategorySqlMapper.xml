@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  CategorySqlMapper の SQL 定義。
+  namespace は対応するインターフェイスの完全修飾名にすること。
+  型エイリアス（ProductCategoryRow）は application.yml の
+  mybatis.type-aliases-package で解決される。
+  単一テーブル・ネストなしのため ResultMap は使わず resultType で自動マッピングする
+  （map-underscore-to-camel-case=true 前提で category_uuid → categoryUuid が対応）。
+-->
+<mapper namespace="jp.co.fullness.ddd.infrastructure.category.CategorySqlMapper">
+
+    <select id="findByUuid" resultType="ProductCategoryRow">
+        SELECT id, category_uuid, name
+        FROM product_category
+        WHERE category_uuid = #{categoryUuid}
+    </select>
+
+    <select id="findAll" resultType="ProductCategoryRow">
+        SELECT id, category_uuid, name
+        FROM product_category
+        ORDER BY id ASC
+    </select>
+
+</mapper>
