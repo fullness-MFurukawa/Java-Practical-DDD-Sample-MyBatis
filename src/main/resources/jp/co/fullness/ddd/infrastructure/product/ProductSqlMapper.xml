@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  ProductSqlMapper の SQL 定義。
+  namespace は必ず対応するインターフェイスの完全修飾名にすること。
+  型エイリアス（ProductRow など）は application.yml の
+  mybatis.type-aliases-package で解決される。
+-->
+<mapper namespace="jp.co.fullness.ddd.infrastructure.product.ProductSqlMapper">
+
+    <!-- ============================================================
+         ResultMap: JOIN 結果を ProductRow（+ネスト）へマッピング
+         id / name はテーブル間で衝突するため、SELECT 側で別名を付け、
+         その別名を column に指定して取り違えを防ぐ。
+         ============================================================ -->
+    <resultMap id="productRowMap" type="ProductRow">
+        <result property="productUuid" column="p_product_uuid"/>
+        <result property="name"        column="p_name"/>
+        <result property="price"       column="p_price"/>
+        <result property="categoryId"  column="p_category_id"/>
+
+        <association property="category" javaType="ProductCategoryRow">
+            <result property="categoryUuid" column="c_category_uuid"/>
+            <result property="name"         column="c_name"/>
+        </association>
+
+        <association property="stock" javaType="ProductStockRow">
+            <result property="stockUuid" column="s_stock_uuid"/>
+            <result property="stock"     column="s_stock"/>
+        </association>
+    </resultMap>
+
+    <!-- 商品取得の共通 SELECT（product_uuid / name で条件を切り替える） -->
+    <sql id="selectProductJoin">
+        SELECT
+            p.product_uuid   AS p_product_uuid,
+            p.name           AS p_name,
+            p.price          AS p_price,
+            p.category_id    AS p_category_id,
+            pc.category_uuid AS c_category_uuid,
+            pc.name          AS c_name,
+            ps.stock_uuid    AS s_stock_uuid,
+            ps.stock         AS s_stock
+        FROM product p
+        JOIN product_category pc ON p.category_id = pc.id
+        JOIN product_stock    ps ON ps.product_id = p.id
+    </sql>
+
+    <!-- ============================================================
+         SELECT
+         ============================================================ -->
+
+    <select id="existsByName" resultType="boolean">
+        SELECT EXISTS(
+            SELECT 1 FROM product WHERE name = #{name}
+        )
+    </select>
+
+    <select id="findCategoryPkByUuid" resultType="java.lang.Integer">
+        SELECT id
+        FROM product_category
+        WHERE category_uuid = #{categoryUuid}
+    </select>
+
+    <select id="findByUuid" resultMap="productRowMap">
+        <include refid="selectProductJoin"/>
+        WHERE p.product_uuid = #{productUuid}
+    </select>
+
+    <select id="findByName" resultMap="productRowMap">
+        <include refid="selectProductJoin"/>
+        WHERE p.name = #{name}
+    </select>
+
+    <!-- ============================================================
+         INSERT（採番された id を keyProperty へ書き戻す）
+         ============================================================ -->
+
+    <insert id="insertProduct" parameterType="ProductRow"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO product (product_uuid, name, price, category_id)
+        VALUES (#{productUuid}, #{name}, #{price}, #{categoryId})
+    </insert>
+
+    <insert id="insertStock" parameterType="ProductStockRow"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO product_stock (stock_uuid, stock, product_id)
+        VALUES (#{stockUuid}, #{stock}, #{productId})
+    </insert>
+
+</mapper>

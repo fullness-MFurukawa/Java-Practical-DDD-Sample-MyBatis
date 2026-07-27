@@ -11,8 +11,8 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 2
       connection-timeout: 30000
-  mybatis:
-    mapper-locations: classpath:mapper/*.xml
-    type-aliases-package: jp.co.fullness.ddd.infrastructure.mybatis.row
-    configuration:
-      map-underscore-to-camel-case: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: jp.co.fullness.ddd.infrastructure
+  configuration:
+    map-underscore-to-camel-case: true
