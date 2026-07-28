@@ -139,6 +139,16 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">在庫を1件登録する。</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#updateProduct(jp.co.fullness.ddd.infrastructure.product.ProductRow)" class="member-name-link">updateProduct</a><wbr>(<a href="ProductRow.html" title="jp.co.fullness.ddd.infrastructure.product内のクラス">ProductRow</a>&nbsp;row)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">商品の名称・単価を更新する（<code>product_uuid</code> で対象を特定）。</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#updateStock(jp.co.fullness.ddd.infrastructure.stock.ProductStockRow)" class="member-name-link">updateStock</a><wbr>(<a href="../stock/ProductStockRow.html" title="jp.co.fullness.ddd.infrastructure.stock内のクラス">ProductStockRow</a>&nbsp;row)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">在庫数を更新する（<code>stock_uuid</code> で対象を特定）。</div>
+</div>
 </div>
 </div>
 </div>
@@ -230,6 +240,34 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>パラメータ:</dt>
 <dd><code>row</code> - 登録する在庫行</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updateProduct(jp.co.fullness.ddd.infrastructure.product.ProductRow)">
+<h3>updateProduct</h3>
+<div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">updateProduct</span><wbr><span class="parameters">(<a href="ProductRow.html" title="jp.co.fullness.ddd.infrastructure.product内のクラス">ProductRow</a>&nbsp;row)</span></div>
+<div class="block">商品の名称・単価を更新する（<code>product_uuid</code> で対象を特定）。
+
+ <p>カテゴリは「商品を変更する」ユースケースの変更対象外のため更新しない。</p></div>
+<dl class="notes">
+<dt>パラメータ:</dt>
+<dd><code>row</code> - 更新内容を保持する商品行（<code>productUuid</code> で対象を特定）</dd>
+<dt>戻り値:</dt>
+<dd>更新された行数（0 は対象が存在しなかったことを表す）</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updateStock(jp.co.fullness.ddd.infrastructure.stock.ProductStockRow)">
+<h3>updateStock</h3>
+<div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">updateStock</span><wbr><span class="parameters">(<a href="../stock/ProductStockRow.html" title="jp.co.fullness.ddd.infrastructure.stock内のクラス">ProductStockRow</a>&nbsp;row)</span></div>
+<div class="block">在庫数を更新する（<code>stock_uuid</code> で対象を特定）。</div>
+<dl class="notes">
+<dt>パラメータ:</dt>
+<dd><code>row</code> - 更新内容を保持する在庫行（<code>stockUuid</code> で対象を特定）</dd>
+<dt>戻り値:</dt>
+<dd>更新された行数</dd>
 </dl>
 </section>
 </li>

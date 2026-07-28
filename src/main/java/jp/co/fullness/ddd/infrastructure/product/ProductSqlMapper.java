@@ -64,4 +64,22 @@ public interface ProductSqlMapper {
      * @param row 登録する在庫行
      */
     void insertStock(ProductStockRow row);
+
+    /**
+     * 商品の名称・単価を更新する（{@code product_uuid} で対象を特定）。
+     *
+     * <p>カテゴリは「商品を変更する」ユースケースの変更対象外のため更新しない。</p>
+     *
+     * @param row 更新内容を保持する商品行（{@code productUuid} で対象を特定）
+     * @return 更新された行数（0 は対象が存在しなかったことを表す）
+     */
+    int updateProduct(ProductRow row);
+
+    /**
+     * 在庫数を更新する（{@code stock_uuid} で対象を特定）。
+     *
+     * @param row 更新内容を保持する在庫行（{@code stockUuid} で対象を特定）
+     * @return 更新された行数
+     */
+    int updateStock(ProductStockRow row);
 }

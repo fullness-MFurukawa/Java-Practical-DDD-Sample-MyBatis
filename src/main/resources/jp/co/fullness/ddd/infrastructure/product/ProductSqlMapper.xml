@@ -75,8 +75,8 @@
     </select>
 
     <!-- ============================================================
-         INSERT（採番された id を keyProperty へ書き戻す）
-         ============================================================ -->
+        INSERT（採番された id を keyProperty へ書き戻す）
+        ============================================================ -->
 
     <insert id="insertProduct" parameterType="ProductRow"
             useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -89,5 +89,21 @@
         INSERT INTO product_stock (stock_uuid, stock, product_id)
         VALUES (#{stockUuid}, #{stock}, #{productId})
     </insert>
+
+    <!-- 商品の名称・単価を更新（カテゴリは変更対象外のため触らない） -->
+    <update id="updateProduct" parameterType="ProductRow">
+        UPDATE product
+           SET name  = #{name},
+               price = #{price}
+         WHERE product_uuid = #{productUuid}
+    </update>
+
+    <!-- 在庫数を更新（stock_uuid で対象を特定） -->
+    <update id="updateStock" parameterType="ProductStockRow">
+        UPDATE product_stock
+           SET stock = #{stock}
+         WHERE stock_uuid = #{stockUuid}
+    </update>
+
 
 </mapper>

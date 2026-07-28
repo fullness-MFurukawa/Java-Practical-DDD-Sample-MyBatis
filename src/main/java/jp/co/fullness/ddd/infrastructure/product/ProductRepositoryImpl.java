@@ -2,7 +2,6 @@ package jp.co.fullness.ddd.infrastructure.product;
 
 import java.util.Optional;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -22,10 +21,6 @@ import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
  *
  * <p>MyBatis の例外は mybatis-spring により Spring の
  * {@link org.springframework.dao.DataAccessException} に翻訳されるため、そこを捕捉する。</p>
- *
- * <p>{@code @Profile("mybatis")} を付けているため、{@code spring.profiles.active=mybatis}
- * のときだけこの Bean が有効になる（同一インターフェイスの他の実装と同時にコンテナへ
- * 載らないようにする）。</p>
  */
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
@@ -69,6 +64,38 @@ public class ProductRepositoryImpl implements ProductRepository {
             throw new InternalException("商品登録中にデータベースエラーが発生しました。", ex);
         } catch (Exception ex) {
             throw new InternalException("商品登録処理中に予期しないエラーが発生しました。", ex);
+        }
+    }
+
+    @Override
+    public void update(Product product) {
+        if (product == null) {
+            throw new DomainException("商品は必須です。");
+        }
+        try {
+            // 集約 → Row（変更後の名称・単価・在庫数を反映。UUIDで対象を特定する）
+            ProductRow pr = assembler.toProductRow(product);
+            ProductStockRow sr = assembler.toStockRow(product);
+
+            // 商品(product)を product_uuid で特定し、名称・単価を UPDATE
+            // ※カテゴリは「商品を変更する」ユースケースの変更対象外のため更新しない
+            int updatedProduct = sqlMapper.updateProduct(pr);
+            if (updatedProduct == 0) {
+                // 事前に findById で存在確認済みのため、ここに到達するのは想定外(並行削除など)
+                throw new InternalException("更新対象の商品が見つかりませんでした。");
+            }
+
+            // 在庫(product_stock)を stock_uuid で特定し、在庫数を UPDATE
+            sqlMapper.updateStock(sr);
+
+        } catch (DomainException ex) {
+            throw ex;          // ドメイン例外はそのまま伝播させる
+        } catch (InternalException ex) {
+            throw ex;          // 自前で投げた InternalException を generic catch で二重ラップしない
+        } catch (DataAccessException ex) {
+            throw new InternalException("商品変更中にデータベースエラーが発生しました。", ex);
+        } catch (Exception ex) {
+            throw new InternalException("商品変更処理中に予期しないエラーが発生しました。", ex);
         }
     }
 
