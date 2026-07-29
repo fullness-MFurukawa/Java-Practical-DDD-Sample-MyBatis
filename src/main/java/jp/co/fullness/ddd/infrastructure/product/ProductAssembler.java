@@ -50,7 +50,7 @@ public class ProductAssembler {
         if (cr == null) throw new DomainException("ProductCategoryRow が null です。");
         if (sr == null) throw new DomainException("ProductStockRow が null です。");
 
-        var product = productRowMapper.toDomain(pr);          // skeleton
+        var product = productRowMapper.toDomain(pr);          
         product.attachCategory(categoryRowMapper.toDomain(cr));
         product.attachStock(stockRowMapper.toDomain(sr));
         return product;
