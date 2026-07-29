@@ -38,11 +38,11 @@ class CategorySqlMapperTest {
         @DisplayName("実在する category_uuid で1件取得できる")
         void existing() {
             // category_uuid はランダム生成なので、findAll から実在の1件を取り UUID で引き直す
-            List<ProductCategoryRow> all = sqlMapper.findAll();
+            List<CategoryRow> all = sqlMapper.findAll();
             assertFalse(all.isEmpty(), "サンプルのカテゴリが存在すること");
-            ProductCategoryRow sample = all.get(0);
+            CategoryRow sample = all.get(0);
 
-            ProductCategoryRow found = sqlMapper.findByUuid(sample.getCategoryUuid());
+            CategoryRow found = sqlMapper.findByUuid(sample.getCategoryUuid());
 
             assertNotNull(found);
             assertEquals(sample.getId(), found.getId());

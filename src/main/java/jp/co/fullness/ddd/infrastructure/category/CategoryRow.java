@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ProductCategoryRow {
+public class CategoryRow {
 
     /** 主キー（自動採番） */
     private Integer id;

@@ -25,14 +25,14 @@ public interface CategorySqlMapper {
      * category_uuid でカテゴリを1件取得する。
      *
      * @param categoryUuid カテゴリの識別Id
-     * @return 見つかれば {@link ProductCategoryRow}、無ければ null
+     * @return 見つかれば {@link CategoryRow}、無ければ null
      */
-    ProductCategoryRow findByUuid(@Param("categoryUuid") String categoryUuid);
+    CategoryRow findByUuid(@Param("categoryUuid") String categoryUuid);
 
     /**
      * すべてのカテゴリを id 昇順で取得する。
      *
      * @return カテゴリ行のリスト（0件なら空リスト）
      */
-    List<ProductCategoryRow> findAll();
+    List<CategoryRow> findAll();
 }

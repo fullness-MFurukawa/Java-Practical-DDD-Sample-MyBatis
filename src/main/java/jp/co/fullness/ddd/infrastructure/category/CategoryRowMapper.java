@@ -9,16 +9,16 @@ import jp.co.fullness.ddd.domain.model.category.CategoryId;
 import jp.co.fullness.ddd.domain.model.category.CategoryName;
 
 /**
- * MyBatis の {@link ProductCategoryRow} をドメインの {@link Category} に変換する腐敗防止層（ACL）。
+ * MyBatis の {@link CategoryRow} をドメインの {@link Category} に変換する腐敗防止層（ACL）。
  *
  * <p>DB 由来の Row を、値の検証を VO（{@link CategoryId} / {@link CategoryName}）へ
  * 委ねてドメインの語彙に翻訳する。この層は「変換」に徹する。</p>
  */
 @Mapper(componentModel = "spring")
-public interface CategoryRowMapper extends ToDomainMapper<ProductCategoryRow, Category> {
+public interface CategoryRowMapper extends ToDomainMapper<CategoryRow, Category> {
 
     @Override
-    default Category toDomain(ProductCategoryRow row) {
+    default Category toDomain(CategoryRow row) {
         if (row == null) {
             throw new DomainException("ProductCategoryRow が null です。");
         }

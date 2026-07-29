@@ -24,7 +24,7 @@ import jp.co.fullness.ddd.domain.model.product.ProductPrice;
 import jp.co.fullness.ddd.domain.model.stock.Stock;
 import jp.co.fullness.ddd.domain.model.stock.StockQuantity;
 import jp.co.fullness.ddd.infrastructure.category.CategoryRowMapper;
-import jp.co.fullness.ddd.infrastructure.category.ProductCategoryRow;
+import jp.co.fullness.ddd.infrastructure.category.CategoryRow;
 import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
 import jp.co.fullness.ddd.infrastructure.stock.StockRowMapper;
 
@@ -75,7 +75,7 @@ class ProductAssemblerTest {
         @DisplayName("骨格に Category と Stock を attach して合成する")
         void success() {
             ProductRow pr = new ProductRow();
-            ProductCategoryRow cr = new ProductCategoryRow();
+            CategoryRow cr = new CategoryRow();
             ProductStockRow sr = new ProductStockRow();
 
             Product skeleton = sampleSkeleton();
@@ -97,7 +97,7 @@ class ProductAssemblerTest {
         @DisplayName("ProductRow が null なら例外（Mapper は呼ばれない）")
         void nullProductRow() {
             assertThrows(DomainException.class,
-                    () -> assembler.assemble(null, new ProductCategoryRow(), new ProductStockRow()));
+                    () -> assembler.assemble(null, new CategoryRow(), new ProductStockRow()));
         }
 
         @Test
@@ -111,7 +111,7 @@ class ProductAssemblerTest {
         @DisplayName("ProductStockRow が null なら例外")
         void nullStockRow() {
             assertThrows(DomainException.class,
-                    () -> assembler.assemble(new ProductRow(), new ProductCategoryRow(), null));
+                    () -> assembler.assemble(new ProductRow(), new CategoryRow(), null));
         }
     }
 

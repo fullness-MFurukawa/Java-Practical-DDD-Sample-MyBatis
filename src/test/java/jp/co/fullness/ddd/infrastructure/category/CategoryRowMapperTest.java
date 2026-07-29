@@ -30,8 +30,8 @@ class CategoryRowMapperTest {
     private CategoryRowMapper mapper;
 
     /** ProductCategoryRow は同一パッケージなので import 不要 */
-    private ProductCategoryRow row(String categoryUuid, String name) {
-        ProductCategoryRow r = new ProductCategoryRow();
+    private CategoryRow row(String categoryUuid, String name) {
+        CategoryRow r = new CategoryRow();
         r.setCategoryUuid(categoryUuid);
         r.setName(name);
         return r;

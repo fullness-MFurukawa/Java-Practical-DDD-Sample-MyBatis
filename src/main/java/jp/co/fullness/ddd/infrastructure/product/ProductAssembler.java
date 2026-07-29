@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import jp.co.fullness.ddd.domain.exception.DomainException;
 import jp.co.fullness.ddd.domain.model.product.Product;
 import jp.co.fullness.ddd.infrastructure.category.CategoryRowMapper;
-import jp.co.fullness.ddd.infrastructure.category.ProductCategoryRow;
+import jp.co.fullness.ddd.infrastructure.category.CategoryRow;
 import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
 import jp.co.fullness.ddd.infrastructure.stock.StockRowMapper;
 
@@ -45,7 +45,7 @@ public class ProductAssembler {
      * @return 合成済みの Product 集約
      * @throws DomainException 必須項目欠落や不正値の場合
      */
-    public Product assemble(ProductRow pr, ProductCategoryRow cr, ProductStockRow sr) {
+    public Product assemble(ProductRow pr, CategoryRow cr, ProductStockRow sr) {
         if (pr == null) throw new DomainException("ProductRow が null です。");
         if (cr == null) throw new DomainException("ProductCategoryRow が null です。");
         if (sr == null) throw new DomainException("ProductStockRow が null です。");

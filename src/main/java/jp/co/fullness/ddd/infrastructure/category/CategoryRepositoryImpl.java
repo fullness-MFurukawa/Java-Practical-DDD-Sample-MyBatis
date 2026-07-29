@@ -24,7 +24,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public Optional<Category> findById(CategoryId categoryId) {
         if (categoryId == null) throw new DomainException("商品カテゴリIdは必須です。");
         try {
-            ProductCategoryRow row = sqlMapper.findByUuid(categoryId.value());
+            CategoryRow row = sqlMapper.findByUuid(categoryId.value());
             return Optional.ofNullable(row).map(rowMapper::toDomain);
         } catch (DomainException ex) {
             throw ex;

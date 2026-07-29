@@ -1,6 +1,6 @@
 package jp.co.fullness.ddd.infrastructure.product;
 
-import jp.co.fullness.ddd.infrastructure.category.ProductCategoryRow;
+import jp.co.fullness.ddd.infrastructure.category.CategoryRow;
 import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +34,7 @@ public class ProductRow {
     // ---- JOIN 取得時のみ設定される関連（ResultMap の association で流し込まれる） ----
 
     /** JOIN で取得したカテゴリ行 */
-    private ProductCategoryRow category;
+    private CategoryRow category;
 
     /** JOIN で取得した在庫行 */
     private ProductStockRow stock;
