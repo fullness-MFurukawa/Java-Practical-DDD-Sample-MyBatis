@@ -12,13 +12,13 @@
 -->
 <mapper namespace="jp.co.fullness.ddd.infrastructure.category.CategorySqlMapper">
 
-    <select id="findByUuid" resultType="ProductCategoryRow">
+    <select id="findByUuid" resultType="CategoryRow">
         SELECT id, category_uuid, name
         FROM product_category
         WHERE category_uuid = #{categoryUuid}
     </select>
 
-    <select id="findAll" resultType="ProductCategoryRow">
+    <select id="findAll" resultType="CategoryRow">
         SELECT id, category_uuid, name
         FROM product_category
         ORDER BY id ASC

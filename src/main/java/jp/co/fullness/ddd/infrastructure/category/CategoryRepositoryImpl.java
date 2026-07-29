@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import jp.co.fullness.ddd.domain.exception.DomainException;
+import jp.co.fullness.ddd.domain.mapper.ToDomainMapper;
 import jp.co.fullness.ddd.domain.model.category.Category;
 import jp.co.fullness.ddd.domain.model.category.CategoryId;
 import jp.co.fullness.ddd.domain.model.category.CategoryRepository;
@@ -18,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoryRepositoryImpl implements CategoryRepository {
 
     private final CategorySqlMapper sqlMapper;
-    private final CategoryRowMapper rowMapper;   // MapStruct: ProductCategoryRow -> Category
+    private final ToDomainMapper<CategoryRow, Category> rowMapper;   // MapStruct: ProductCategoryRow -> Category
 
     @Override
     public Optional<Category> findById(CategoryId categoryId) {

@@ -21,12 +21,12 @@
         <result property="price"       column="p_price"/>
         <result property="categoryId"  column="p_category_id"/>
 
-        <association property="category" javaType="ProductCategoryRow">
+        <association property="category" javaType="CategoryRow">
             <result property="categoryUuid" column="c_category_uuid"/>
             <result property="name"         column="c_name"/>
         </association>
 
-        <association property="stock" javaType="ProductStockRow">
+        <association property="stock" javaType="StockRow">
             <result property="stockUuid" column="s_stock_uuid"/>
             <result property="stock"     column="s_stock"/>
         </association>
@@ -84,7 +84,7 @@
         VALUES (#{productUuid}, #{name}, #{price}, #{categoryId})
     </insert>
 
-    <insert id="insertStock" parameterType="ProductStockRow"
+    <insert id="insertStock" parameterType="StockRow"
             useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO product_stock (stock_uuid, stock, product_id)
         VALUES (#{stockUuid}, #{stock}, #{productId})
@@ -99,7 +99,7 @@
     </update>
 
     <!-- 在庫数を更新（stock_uuid で対象を特定） -->
-    <update id="updateStock" parameterType="ProductStockRow">
+    <update id="updateStock" parameterType="StockRow">
         UPDATE product_stock
            SET stock = #{stock}
          WHERE stock_uuid = #{stockUuid}
