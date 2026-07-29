@@ -25,7 +25,7 @@ import jp.co.fullness.ddd.domain.model.stock.Stock;
 import jp.co.fullness.ddd.domain.model.stock.StockQuantity;
 import jp.co.fullness.ddd.infrastructure.category.CategoryRowMapper;
 import jp.co.fullness.ddd.infrastructure.category.CategoryRow;
-import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
+import jp.co.fullness.ddd.infrastructure.stock.StockRow;
 import jp.co.fullness.ddd.infrastructure.stock.StockRowMapper;
 
 /**
@@ -76,7 +76,7 @@ class ProductAssemblerTest {
         void success() {
             ProductRow pr = new ProductRow();
             CategoryRow cr = new CategoryRow();
-            ProductStockRow sr = new ProductStockRow();
+            StockRow sr = new StockRow();
 
             Product skeleton = sampleSkeleton();
             Category category = sampleCategory();
@@ -97,14 +97,14 @@ class ProductAssemblerTest {
         @DisplayName("ProductRow が null なら例外（Mapper は呼ばれない）")
         void nullProductRow() {
             assertThrows(DomainException.class,
-                    () -> assembler.assemble(null, new CategoryRow(), new ProductStockRow()));
+                    () -> assembler.assemble(null, new CategoryRow(), new StockRow()));
         }
 
         @Test
         @DisplayName("ProductCategoryRow が null なら例外")
         void nullCategoryRow() {
             assertThrows(DomainException.class,
-                    () -> assembler.assemble(new ProductRow(), null, new ProductStockRow()));
+                    () -> assembler.assemble(new ProductRow(), null, new StockRow()));
         }
 
         @Test
@@ -139,7 +139,7 @@ class ProductAssemblerTest {
         @DisplayName("toStockRow は Product の Stock を取り出して委譲する")
         void toStockRow_delegates() {
             Product product = sampleFullProduct();
-            ProductStockRow expected = new ProductStockRow();
+            StockRow expected = new StockRow();
             when(stockRowMapper.fromDomain(product.getStock())).thenReturn(expected);
 
             assertSame(expected, assembler.toStockRow(product));

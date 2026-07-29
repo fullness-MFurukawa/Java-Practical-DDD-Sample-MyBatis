@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
+import jp.co.fullness.ddd.infrastructure.stock.StockRow;
 
 /**
  * {@link ProductSqlMapper}（MyBatis の SQL マッパー）の結合テスト（実 PostgreSQL に接続）。
@@ -140,7 +140,7 @@ class ProductSqlMapperTest {
             sqlMapper.insertProduct(pr);
             assertNotNull(pr.getId(), "採番された商品PKが id に書き戻ること");
             // 在庫を登録（product_id を補完）
-            ProductStockRow sr = new ProductStockRow();
+            StockRow sr = new StockRow();
             sr.setStockUuid(UUID.randomUUID().toString());
             sr.setStock(15);
             sr.setProductId(pr.getId());
@@ -177,7 +177,7 @@ class ProductSqlMapperTest {
             sqlMapper.insertProduct(pr);
 
             String stockUuid = UUID.randomUUID().toString();
-            ProductStockRow sr = new ProductStockRow();
+            StockRow sr = new StockRow();
             sr.setStockUuid(stockUuid);
             sr.setStock(10);
             sr.setProductId(pr.getId());
@@ -192,7 +192,7 @@ class ProductSqlMapperTest {
             assertEquals(1, updatedProduct, "更新された商品行数は1であること");
 
             // 在庫を更新（stock_uuid で特定。在庫数を変更）
-            ProductStockRow updateS = new ProductStockRow();
+            StockRow updateS = new StockRow();
             updateS.setStockUuid(stockUuid);
             updateS.setStock(42);
             int updatedStock = sqlMapper.updateStock(updateS);

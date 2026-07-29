@@ -11,7 +11,7 @@ import jp.co.fullness.ddd.domain.model.product.ProductId;
 import jp.co.fullness.ddd.domain.model.product.ProductName;
 import jp.co.fullness.ddd.domain.model.product.ProductRepository;
 import jp.co.fullness.ddd.infrastructure.exception.InternalException;
-import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
+import jp.co.fullness.ddd.infrastructure.stock.StockRow;
 
 /**
  * {@link ProductRepository} の MyBatis による実装。
@@ -48,7 +48,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
             // 集約 → Row（外部キーは未設定）
             ProductRow pr = assembler.toProductRow(product);
-            ProductStockRow sr = assembler.toStockRow(product);
+            StockRow sr = assembler.toStockRow(product);
 
             // product に category_id を補完して INSERT（採番PKは pr.id に書き戻る）
             pr.setCategoryId(categoryPk);
@@ -75,7 +75,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         try {
             // 集約 → Row（変更後の名称・単価・在庫数を反映。UUIDで対象を特定する）
             ProductRow pr = assembler.toProductRow(product);
-            ProductStockRow sr = assembler.toStockRow(product);
+            StockRow sr = assembler.toStockRow(product);
 
             // 商品(product)を product_uuid で特定し、名称・単価を UPDATE
             // ※カテゴリは「商品を変更する」ユースケースの変更対象外のため更新しない

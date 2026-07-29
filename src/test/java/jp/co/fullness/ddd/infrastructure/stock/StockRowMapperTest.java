@@ -31,8 +31,8 @@ class StockRowMapperTest {
     private static final String UUID_STR = "22222222-2222-2222-2222-222222222222";
 
     /** ProductStockRow は同一パッケージなので import 不要 */
-    private ProductStockRow row(String stockUuid, Integer stock) {
-        ProductStockRow r = new ProductStockRow();
+    private StockRow row(String stockUuid, Integer stock) {
+        StockRow r = new StockRow();
         r.setStockUuid(stockUuid);
         r.setStock(stock);
         return r;
@@ -85,7 +85,7 @@ class StockRowMapperTest {
         void valid() {
             Stock stock = Stock.restore(StockId.fromString(UUID_STR), StockQuantity.of(30));
 
-            ProductStockRow row = mapper.fromDomain(stock);
+            StockRow row = mapper.fromDomain(stock);
 
             assertEquals(UUID_STR, row.getStockUuid());
             assertEquals(30, row.getStock().intValue());

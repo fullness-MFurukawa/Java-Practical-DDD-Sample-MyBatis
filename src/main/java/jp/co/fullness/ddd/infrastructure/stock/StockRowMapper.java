@@ -10,15 +10,15 @@ import jp.co.fullness.ddd.domain.model.stock.StockId;
 import jp.co.fullness.ddd.domain.model.stock.StockQuantity;
 
 /**
- * MyBatis の {@link ProductStockRow} とエンティティ {@link Stock} を相互変換する Mapper。
+ * MyBatis の {@link StockRow} とエンティティ {@link Stock} を相互変換する Mapper。
  *
  * <p>腐敗防止層（ACL）として、永続化構造（Row）とドメイン構造（Stock）の依存を絶つ。</p>
  */
 @Mapper(componentModel = "spring")
-public interface StockRowMapper extends DomainBiMapper<ProductStockRow, Stock> {
+public interface StockRowMapper extends DomainBiMapper<StockRow, Stock> {
 
     @Override
-    default Stock toDomain(ProductStockRow row) {
+    default Stock toDomain(StockRow row) {
         if (row == null) {
             throw new DomainException("在庫情報が取得できません。");
         }
@@ -39,12 +39,12 @@ public interface StockRowMapper extends DomainBiMapper<ProductStockRow, Stock> {
     }
 
     @Override
-    default ProductStockRow fromDomain(Stock domain) {
+    default StockRow fromDomain(Stock domain) {
         if (domain == null) {
             throw new DomainException("Stock エンティティが null です。");
         }
 
-        ProductStockRow row = new ProductStockRow();
+        StockRow row = new StockRow();
         row.setStockUuid(domain.getStockId().value());
         row.setStock(domain.getQuantity().value());
         // 外部キー product_id はここでは設定しない（Repository が補完する）

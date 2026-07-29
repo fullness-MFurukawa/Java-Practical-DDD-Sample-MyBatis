@@ -1,7 +1,7 @@
 package jp.co.fullness.ddd.infrastructure.product;
 
 import jp.co.fullness.ddd.infrastructure.category.CategoryRow;
-import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
+import jp.co.fullness.ddd.infrastructure.stock.StockRow;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,6 +37,6 @@ public class ProductRow {
     private CategoryRow category;
 
     /** JOIN で取得した在庫行 */
-    private ProductStockRow stock;
+    private StockRow stock;
 }
 

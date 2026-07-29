@@ -3,7 +3,7 @@ package jp.co.fullness.ddd.infrastructure.product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import jp.co.fullness.ddd.infrastructure.stock.ProductStockRow;
+import jp.co.fullness.ddd.infrastructure.stock.StockRow;
 
 /**
  * MyBatis の SQL マッパー（SQL 本体は {@code resources/mapper/ProductSqlMapper.xml} に定義）。
@@ -63,7 +63,7 @@ public interface ProductSqlMapper {
      *
      * @param row 登録する在庫行
      */
-    void insertStock(ProductStockRow row);
+    void insertStock(StockRow row);
 
     /**
      * 商品の名称・単価を更新する（{@code product_uuid} で対象を特定）。
@@ -81,5 +81,5 @@ public interface ProductSqlMapper {
      * @param row 更新内容を保持する在庫行（{@code stockUuid} で対象を特定）
      * @return 更新された行数
      */
-    int updateStock(ProductStockRow row);
+    int updateStock(StockRow row);
 }
